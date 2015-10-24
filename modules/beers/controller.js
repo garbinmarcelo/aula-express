@@ -54,6 +54,21 @@ var Controller = {
 		  res.render('list', {title: 'Listagem de Cervejas', beers: data});
 		});
 	},
+  get_ceva: function(req, res){
+    var query = {_id: req.params.id};
+
+    Model.findOne(query, function(err, data){
+      if (err){
+        console.log('Erro: ', err);
+        msg = err;
+      }
+      else {
+        console.log('Listagem: ', data);
+        msg = data;
+      }
+      res.render('mostrar', {title: 'Cerveja', beer: data});
+    });
+  },
   retrieve: function(req, res){
     var query = {};
 

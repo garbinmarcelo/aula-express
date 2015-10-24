@@ -2,9 +2,14 @@ var express = require('express');
 var router = express.Router();
 var Controller = require('./../controller');
 
-/* GET home page. */
+/* Listar Cervejas */
 router.get('/', function(req, res, next) {
 	Controller.list(req, res);
+});
+
+/* Listar Cerveja */
+router.get('/:id', function(req, res, next) {
+	Controller.get_ceva(req, res);
 });
 
 module.exports = router;
