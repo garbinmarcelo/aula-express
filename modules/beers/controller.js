@@ -18,31 +18,26 @@ var Controller = {
 		});
 	},
 	update: function(req, res){
-    var query = {name: '/skol/i'};
+    var query = {_id: req.params.id};
 
-		  var mod = {
-  			name: 'Brahma',
-  			alcohol: 4,
-  			price: 6,
-  			category: 'pilsen'
-  		};
+	  var mod = req.body;
 
-  		var optional = {
-  			upsert: false,
-  			multi: false
-  		};
+		var optional = {
+			upsert: false,
+			multi: false
+		};
 
-  		Model.update(query, mod, function (err, data){
-  			if(err){
-  				console.log('Erro: ', err);
-  		    msg = err;
-  			}else{
-  				console.log('Cervejas atualizadas com sucesso: ', data);
-  		    msg = data.nModified;
+		Model.update(query, mod, function (err, data){
+			if(err){
+				console.log('Erro: ', err);
+		    msg = err;
+			}else{
+				console.log('Cervejas atualizadas com sucesso: ', data);
+		    msg = data.nModified;
 
-  			}
-  			res.json(msg);
-  		});
+			}
+			res.json(msg);
+		});
 	},
 	retrieve: function(req, res){
 		var query = {};
@@ -59,8 +54,23 @@ var Controller = {
 		  res.json(msg);
 		});
 	},
+  get: function(req, res){
+    var query = {_id: req.params.id};
+
+    Model.findOne(query, function(err, data){
+      if (err){
+        console.log('Erro: ', err);
+        msg = err;
+      }
+      else {
+        console.log('Listagem: ', data);
+        msg = data;
+      }
+      res.json(msg);
+    });
+  },
 	delete: function(req, res){
-		var query = {name: /Brahma/i };
+		var query = {_id: req.params.id};
 
 		// É multi: true CUIDADO!
 		Model.remove(query, function(err, data){
