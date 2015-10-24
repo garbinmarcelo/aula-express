@@ -39,7 +39,7 @@ var Controller = {
 			res.json(msg);
 		});
 	},
-	retrieve: function(req, res){
+	list: function(req, res){
 		var query = {};
 
 		Model.find(query, function(err, data){
@@ -51,9 +51,24 @@ var Controller = {
 		    console.log('Listagem: ', data);
 		    msg = data;
 		  }
-		  res.json(msg);
+		  res.render('list', {title: 'Listagem de Cervejas', beers: data});
 		});
 	},
+  retrieve: function(req, res){
+    var query = {};
+
+    Model.find(query, function(err, data){
+      if (err){
+        console.log('Erro: ', err);
+        msg = err;
+      }
+      else {
+        console.log('Listagem: ', data);
+        msg = data;
+      }
+      res.json(msg);
+    });
+  },
   get: function(req, res){
     var query = {_id: req.params.id};
 
